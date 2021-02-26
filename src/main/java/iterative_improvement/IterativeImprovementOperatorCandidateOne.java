@@ -19,8 +19,8 @@ import main.NextGenConfig;
 import postgres.PostgresRequestUtils;
 import statistics.malpedia_eval.MalpediaEval;
 import statistics.malpedia_eval.ReadMalpediaEval;
-import statistics.yara_results.NgramCreator;
 import utils.SystemExec;
+import yara_generation.NgramCreator;
 
 public class IterativeImprovementOperatorCandidateOne extends IterativeImprovementOperator {
 
@@ -49,7 +49,7 @@ public class IterativeImprovementOperatorCandidateOne extends IterativeImproveme
 			int family_id = allFamiliesWithIDs.get(family);
 			
 			try {
-				NgramCreator nyg = new NgramCreator();
+				NgramCreator nyg = new NgramCreator(config.capstone_host, config.capstone_port);
 				List<Ngram> ngrams = nyg.getNgramsForFamily_NextGen_CandidateOne(family_id, config, currentNGConfig);
 				nyg.cleanDisasm();
 				ngramsForFamilies.put(family, ngrams);
@@ -60,7 +60,7 @@ public class IterativeImprovementOperatorCandidateOne extends IterativeImproveme
 			}
 		}
 		
-		new PostgresRequestUtils().generateYaraRuleNG(config, dtf, now, dateFolder, fixTheseRules, "7 of them", ngramsForFamilies);
+		new PostgresRequestUtils().generateYaraRuleNG(config, dtf, now, dateFolder, fixTheseRules, currentNGConfig.yara_condition, ngramsForFamilies);
 		
 		
 		/*

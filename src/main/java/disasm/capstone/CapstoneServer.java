@@ -25,7 +25,7 @@ public class CapstoneServer implements DisassemblerInterface {
 	private BufferedReader br;
 	
 	@Override
-	public List<String> getDisassembly(int architecture, int bitness, byte[] opcodes) throws Exception {
+	public List<String> getDisassembly(int architecture, int bitness, byte[] opcodes, String host, int port) throws Exception {
 		List<String> ret = new ArrayList<>();
 		String disassemblyLine = new String();
 		try {
@@ -56,14 +56,14 @@ public class CapstoneServer implements DisassemblerInterface {
 		} catch (IOException e) {
 			logger.error("IO Exception - " + e.getMessage());
 			closeHandle();
-			createHandle();
+			createHandle(host, port);
 		}
 		return ret;
 	}
 
 	@Override
-	public void createHandle() throws UnknownHostException, IOException {
-		handleTCPRequest("localhost", 12345);
+	public void createHandle(String ip, int port) throws UnknownHostException, IOException {
+		handleTCPRequest(ip, port);
 		insReader = new InputStreamReader(instream);
 		br = new BufferedReader(insReader);
 	}

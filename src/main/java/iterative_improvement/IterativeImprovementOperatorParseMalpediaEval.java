@@ -19,8 +19,8 @@ import main.NextGenConfig;
 import postgres.PostgresRequestUtils;
 import statistics.malpedia_eval.MalpediaEval;
 import statistics.malpedia_eval.ReadMalpediaEval;
-import statistics.yara_results.NgramCreator;
 import utils.SystemExec;
+import yara_generation.NgramCreator;
 
 public class IterativeImprovementOperatorParseMalpediaEval extends IterativeImprovementOperator {
 
@@ -74,7 +74,7 @@ public class IterativeImprovementOperatorParseMalpediaEval extends IterativeImpr
 			
 			try {
 				
-				NgramCreator nyg = new NgramCreator();
+				NgramCreator nyg = new NgramCreator(config.capstone_host, config.capstone_port);
 				
 				List<Ngram> ngrams = nyg.getNgramsForFamily_NextGen_ParseMalpediaEval_ReduceFalsePositiveStrategy(family_id, config, currentNGConfig);
 				

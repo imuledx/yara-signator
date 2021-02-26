@@ -12,7 +12,6 @@ import org.slf4j.LoggerFactory;
  */
 
 
-@Deprecated
 public class CapstoneJavaBindings implements DisassemblerInterface {
 	
 	private static final Logger logger = LoggerFactory.getLogger(CapstoneJavaBindings.class);
@@ -60,13 +59,13 @@ public class CapstoneJavaBindings implements DisassemblerInterface {
 //	}
 //
 	@Override
-	public List<String> getDisassembly(int architecture, int bitness, byte[] opcodes) {
+	public List<String> getDisassembly(int architecture, int bitness, byte[] opcodes, String host, int port) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public void createHandle() {
+	public void createHandle(String host, int port) {
 		// TODO Auto-generated method stub
 		
 	}
